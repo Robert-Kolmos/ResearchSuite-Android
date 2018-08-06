@@ -49,22 +49,11 @@ import org.sagebionetworks.research.domain.form.interfaces.SurveyRule;
 import org.sagebionetworks.research.presentation.DisplayString;
 import org.sagebionetworks.research.presentation.mapper.DrawableMapper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InputFieldViewBase implements InputFieldView, Parcelable {
-    public static final Creator<InputFieldViewBase> CREATOR = new Creator<InputFieldViewBase>() {
-        @Override
-        public InputFieldViewBase createFromParcel(Parcel source) {
-            return new InputFieldViewBase(source);
-        }
-
-        @Override
-        public InputFieldViewBase[] newArray(int size) {
-            return new InputFieldViewBase[size];
-        }
-    };
-
+public class InputFieldViewBase implements InputFieldView, Serializable {
     @NonNull
     private final InputDataType formDataType;
 
@@ -160,25 +149,6 @@ public class InputFieldViewBase implements InputFieldView, Parcelable {
         this.range = (Range) in.readSerializable();
         this.surveyRules = new ArrayList<SurveyRule>();
         in.readList(this.surveyRules, SurveyRule.class.getClassLoader());
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.identifier);
-        dest.writeParcelable(this.prompt, flags);
-        dest.writeParcelable(this.promptDetail, flags);
-        dest.writeParcelable(this.placeholderText, flags);
-        dest.writeByte(this.isOptional ? (byte) 1 : (byte) 0);
-        dest.writeParcelable(this.formDataType, flags);
-        dest.writeString(this.uiHint);
-        dest.writeParcelable(this.textFieldOptions, flags);
-        dest.writeSerializable(this.range);
-        dest.writeList(this.surveyRules);
     }
 
     @Override

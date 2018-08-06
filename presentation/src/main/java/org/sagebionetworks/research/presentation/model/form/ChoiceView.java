@@ -48,7 +48,7 @@ import java.io.Serializable;
 import dagger.Provides;
 
 @AutoValue
-public abstract class ChoiceView<E> {
+public abstract class ChoiceView<E> implements Serializable {
     @AutoValue.Builder
     public abstract static class Builder<E> {
         public abstract ChoiceView<E> build();
